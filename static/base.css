@@ -1,0 +1,138 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --dtu-red: #990000;
+    --dtu-red-dark: #7a0000;
+    --dtu-red-darker: #5c0000;
+    --dtu-red-soft: #f8eaea;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    min-height: 100vh;
+}
+
+/* Bootstrap theme overrides */
+.btn-danger {
+    background-color: var(--dtu-red);
+    border-color: var(--dtu-red);
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active {
+    background-color: var(--dtu-red-dark) !important;
+    border-color: var(--dtu-red-dark) !important;
+}
+
+.btn-outline-danger {
+    color: var(--dtu-red);
+    border-color: var(--dtu-red);
+}
+
+.btn-outline-danger:hover,
+.btn-outline-danger:focus,
+.btn-outline-danger:active {
+    background-color: var(--dtu-red);
+    border-color: var(--dtu-red);
+    color: #fff;
+}
+
+.text-danger {
+    color: var(--dtu-red) !important;
+}
+
+.link-danger {
+    color: var(--dtu-red) !important;
+}
+
+.link-danger:hover,
+.link-danger:focus {
+    color: var(--dtu-red-dark) !important;
+}
+
+.border-danger {
+    border-color: var(--dtu-red) !important;
+}
+
+.bg-danger {
+    background-color: var(--dtu-red) !important;
+}
+
+.alert-danger {
+    --bs-alert-color: #6b0000;
+    --bs-alert-bg: #fff1f1;
+    --bs-alert-border-color: #e4b3b3;
+}
+
+.list-group-item .method-dot {
+    background: var(--dtu-red);
+}
+
+/* Your existing custom styles */
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+}
+
+.dtu-logo {
+    height: 40px;
+    width: auto;
+    flex-shrink: 0;
+}
+
+.custom-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 5px;
+    background: var(--dtu-red);
+    border-top-left-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+
+.gif-container {
+    background: #f5f5f7;
+    border: 1px solid #e2e2e6;
+    border-radius: 12px;
+    width: 100%;
+    aspect-ratio: 1894 / 1044;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gif-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.check-icon {
+    background: #198754;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.method-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--dtu-red);
+    display: inline-block;
+    flex-shrink: 0;
+}

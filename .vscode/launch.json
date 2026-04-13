@@ -1,0 +1,51 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Django: runserver",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "args": [
+        "runserver"
+      ],
+      "django": true,
+      "justMyCode": true,
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/.env",
+      "env": {
+        "DJANGO_SETTINGS_MODULE": "config.settings"
+      }
+    },
+    {
+      "name": "Browser Windows",
+      "runtimeExecutable": "C:\\chrome-win\\chrome.exe",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}/core",
+      "disableNetworkCache": true
+    },
+    {
+      "name": "Run Test Script",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "args": [
+        "runscript",
+        "test_script"
+      ],
+      "django": true,
+      "justMyCode": true
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Start Server and Browser",
+      "configurations": [
+        "Django: runserver",
+        "Browser Windows",
+      ]
+    }
+  ]
+}
