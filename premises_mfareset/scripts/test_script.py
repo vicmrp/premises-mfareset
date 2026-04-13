@@ -1,23 +1,45 @@
 from pprint import pprint
 
-from premises_mfareset.utils.graph import list_user_authentication_methods
-from premises_mfareset.utils.auth_methods import prepare_auth_methods
-from premises_mfareset.utils.reset_mfa import reset_mfa_methods
+from active_directory.utils.active_directory_connect import active_directory_connect
+from active_directory.utils.active_directory_query import active_directory_query
 
 
 def run(*args):
-    upn = args[0] if args else "testtes@dtu.dk"
-    print(f"Looking up authentication methods for: {upn}")
+    print("=== Testing AD connection ===")
 
-    methods = list_user_authentication_methods(upn)
-    mfa_methods = prepare_auth_methods(methods)
+    conn, message = active_directory_connect()
+    print(message)
 
-    print("Deletable MFA methods:")
-    pprint(mfa_methods)
+    if not conn:
+        print("Connection failed, stopping test.")
+        return
 
-    result = reset_mfa_methods(upn, mfa_methods)
-    print(result)
+    print("\n=== Testing AD query (users) ===")
 
-    remaining_methods = prepare_auth_methods(list_user_authentication_methods(upn))
-    print("Remaining deletable MFA methods:")
-    pprint(remaining_methods)
+    base_dn = "DC=win,DC=dtu,DC=dk"
+    search_filter = "(objectClass=user)"
+    limit = 5
+
+    users = active_directory_query(
+        base_dn=base_dn,
+        search_filter=search_filter,
+        limit=limit
+    )
+
+    print(f"Found {len(users)} users")
+    if users:
+        pprint(users[0])
+
+    print("\n=== Testing AD query (computers) ===")
+
+    computers = active_directory_query(
+        base_dn=base_dn,
+        search_filter="(objectClass=computer)",
+        limit=5
+    )
+
+    print(f"Found {len(computers)} computers")
+    if computers:
+        pprint(computers[0])
+
+    print("\nDone.")
