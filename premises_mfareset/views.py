@@ -23,36 +23,8 @@ logger = logging.getLogger(__name__)
 
 
 def home(request):
-    return render(request, "core/home.html")
+    return render(request, "premises_mfareset/home.html")
 
-
-@login_required
-def profile(request):
-    attributes = request.session.get("attributes", {})
-    auth_methods = []
-    graph_error = None
-
-    try:
-        username = request.user.username.strip().lower()
-        if "@" not in username:
-            username = f"{username}@dtu.dk"
-
-        raw_methods = list_user_authentication_methods(username)
-        auth_methods = prepare_auth_methods(raw_methods)
-    except Exception:
-        logger.exception("Failed to fetch authentication methods for %s", username)
-        graph_error = "Could not retrieve authentication methods at the moment."
-
-    return render(
-        request,
-        "core/profile.html",
-        {
-            "cas_attributes": attributes,
-            "resolved_upn": username,
-            "auth_methods": auth_methods,
-            "graph_error": graph_error,
-        },
-    )
 
 
 @login_required
@@ -83,14 +55,32 @@ def reset_mfa(request):
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Azure login starter her ###
 def entra_login(request):
     return redirect(build_auth_url())
+
+
 
 # The user is allowed to pass if:
 # 1. authorazition code is OK
 # 2. if user is synched with AD
 # 3. if user is member of any of the MFAResetAdmins groups in AD
 def auth_callback(request):
+    
     # Check if the callback contains an error
     error = request.GET.get("error")
     if error:
@@ -98,6 +88,7 @@ def auth_callback(request):
             f"{error}: {request.GET.get('error_description', 'Unknown error')}",
             status=400,
         )
+    
     # Get the authorazition code from the url
     code = request.GET.get("code")
     if not code:
@@ -118,12 +109,8 @@ def auth_callback(request):
         or claims.get("sub")
     )
     email = claims.get("email") or claims.get("preferred_username") or ""
-    
-    #                                               #
-    ####### Check if user is synched with AD ########
-    #                                               #
-    #
-    # Get get user from Azure, with the on_premises_immutable_id property
+
+    # Check if user is synched with AD
     select_param = "$select=onPremisesImmutableId"
     try:
         response = get_user(
@@ -134,32 +121,21 @@ def auth_callback(request):
         print("User not found in Azure")
         print("Error:", error)
         return
-    
+
     on_premises_immutable_id = response.get("onPremisesImmutableId")
     is_synced = azure_user_is_synced_with_on_premise_user(
         user_principal_name=email,
         on_premises_immutable_id=on_premises_immutable_id,
     )
-    #
-    #
+
     if not is_synced:
         return HttpResponse("User is not synced with on-prem AD", status=403)
-    #
-    ####### Ends here ########
 
-
-
-
-    #                                                                                                                               #
-    ####### Check if user is member of any groups under OU=MFAResetAdmins,OU=Groups,OU=SOC,OU=CIS,OU=AIT,DC=win,DC=dtu,DC=dk ########
-    #                                                                                                                               #
+    # Check if user is member of any groups under OU=MFAResetAdmins,OU=Groups,OU=SOC,OU=CIS,OU=AIT,DC=win,DC=dtu,DC=dk                                                                                                                              #
     user_is_member_of_mfa_reset_group = user_is_member_of_admin_group_in_ad(email)
     
     if not user_is_member_of_mfa_reset_group:
         return HttpResponse("User is not member of MFA reset group", status=403)
-    
-
-
 
     user, _ = User.objects.get_or_create(
         username=username,
@@ -169,18 +145,12 @@ def auth_callback(request):
     login(request, user)
     request.session["entra_claims"] = claims
     request.session["access_token"] = result.get("access_token")
-    return redirect("profile")
+    return redirect("home")
 
-
-@login_required
-def profile(request):
-    return render(
-        request,
-        "core/profile.html",
-        {"claims": request.session.get("entra_claims", {})},
-    )
 
 
 def entra_logout(request):
     logout(request)
     return redirect("home")
+
+### Azure login starter her ###

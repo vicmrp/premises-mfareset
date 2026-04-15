@@ -16,12 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from premises_mfareset.views import home, profile, reset_mfa
+from premises_mfareset.views import home, reset_mfa
 from premises_mfareset.views import (
     home,
     entra_login,
     auth_callback,
-    profile,
     entra_logout,
 )
 
@@ -29,7 +28,6 @@ from premises_mfareset.views import (
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", home, name="home"),
-    path("profile/", profile, name="profile"),
 
     path("reset-mfa/", reset_mfa, name="reset_mfa"),
 

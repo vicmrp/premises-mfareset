@@ -20,7 +20,7 @@
 
     <header class="site-header border-top border-4 border-danger bg-white shadow-sm">
         <div class="container-fluid d-flex align-items-center gap-3 py-2 px-4">
-            <img src="{% static 'core/DTU_Logo.png' %}" alt="DTU" class="dtu-logo">
+            <img src="{% static 'DTU_Logo.png' %}" alt="DTU" class="dtu-logo">
             <span class="fw-semibold text-dark">Danmarks Tekniske Universitet</span>
             <div class="vr"></div>
             <span class="text-secondary small">MFA Self-Service</span>
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="d-flex flex-wrap gap-3 align-items-center pt-3 border-top">
-                            <a href="{% url 'profile' %}" class="btn btn-danger btn-lg px-4">
+                            <a href="{% url 'home' %}" class="btn btn-danger btn-lg px-4">
                                 Go to MFA Reset
                             </a>
                             <a href="{% url 'entra_logout' %}" class="link-danger small">
@@ -52,10 +52,6 @@
                             </a>
                         </div>
                         {% else %}
-                        <div class="gif-container mb-4">
-                            <img src="{% static 'core/login_guide.gif' %}" alt="Login guide" class="img-fluid rounded">
-                        </div>
-
                         <div class="d-flex flex-wrap gap-3 align-items-center pt-3 border-top">
                             <a href="{% url 'entra_login' %}" class="btn btn-danger btn-lg px-4">
                                 Click here to start
@@ -78,3 +74,5 @@
 </body>
 
 </html>
+
+
