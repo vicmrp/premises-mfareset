@@ -19,3 +19,7 @@ python manage.py runserver
 1. En IT personale bruger logger ind via MSAL authentikation.  
 2. Under authentiaktion tjekkes der om Azure brugeren er synched med en Active Directory konti.
 3. Herefter tjekkes der om IT-personale-brugeren er medlem af en af de grupper som giver rettighed til at nulstille en målgruppe's MFA. f.eks. hvis du er medlem af "CN=AIT,OU=MFAResetAdmins,OU=Groups,OU=SOC,OU=CIS,OU=AIT,DC=win,DC=dtu,DC=dk" kan du nulstille DTUBaseUsers/AIT. Fordi extendedAtribbutes1 har værdien AIT
+
+
+#### Notes
+prepare_auth_methods return all methods that this system is allowed to delete. e.g. not the password forexample
