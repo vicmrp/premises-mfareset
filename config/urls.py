@@ -20,17 +20,19 @@ from premises_mfareset.views import (
     entra_login,
     auth_callback,
     entra_logout,
-    my_mfa_admin_groups,
+    mfa_reset_page,
     reset_mfa,
-    scoreboard
+    scoreboard,
+    about
 )
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    path("", my_mfa_admin_groups, name="my_mfa_admin_groups"),
+    path("", mfa_reset_page, name="mfa_reset_page"),
     path("scoreboard/", scoreboard, name="scoreboard"),
+    path("about/", about, name="about"),
 
     # This is not a site. It is a POST AJAX event that is used by it is the button that reset mfa
     path("reset-mfa/", reset_mfa, name="reset_mfa"),
@@ -39,8 +41,6 @@ urlpatterns = [
     path("auth/login/", entra_login, name="entra_login"),
     path("auth/logout/", entra_logout, name="entra_logout"),
     path("auth/callback/", auth_callback, name="auth_callback"),
-
-
 
 ]
 

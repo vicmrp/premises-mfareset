@@ -24,7 +24,7 @@
 
         <!-- LEFT: Logo + title -->
         <div class="d-flex align-items-center gap-3">
-            <a href="{% url 'my_mfa_admin_groups' %}" class="d-flex align-items-center gap-3 text-decoration-none">
+            <a href="{% url 'mfa_reset_page' %}" class="d-flex align-items-center gap-3 text-decoration-none">
                 <img src="{% static 'DTU_Logo.png' %}" alt="DTU" class="dtu-logo">
                 <span class="fw-semibold text-dark">Danmarks Tekniske Universitet</span>
             </a>
@@ -40,11 +40,11 @@
         <div class="text-end">
             {% if admin_upn %}
                 <span class="text-muted small">
-                    Logged in as <strong>{{ admin_upn }}</strong>
+                    Logget ind som <strong>{{ admin_upn }}</strong>
                 </span>
             {% elif user.is_authenticated %}
                 <span class="text-muted small">
-                    Logged in as <strong>{{ user.username }}</strong>
+                    Logget ind som <strong>{{ user.username }}</strong>
                 </span>
             {% endif %}
         </div>
@@ -60,8 +60,15 @@
     <div class="container-fluid d-flex justify-content-end px-4">
         <div class="d-flex gap-3 small">
 
+            <a href="{% url 'about' %}" class="text-muted text-decoration-none">
+                Om
+            </a>
+
+            <span class="text-muted">|</span>
+
+
             <a href="{% url 'scoreboard' %}" class="text-muted text-decoration-none">
-                Scoreboard
+                Resultatliste
             </a>
 
             <span class="text-muted">|</span>
@@ -69,7 +76,7 @@
             <a href="https://github.com/vicre/premises-mfareset"
                target="_blank"
                class="text-muted text-decoration-none">
-                Source code
+                Kildekode
             </a>
 
         </div>
