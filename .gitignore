@@ -8,3 +8,4 @@ premises_mfareset/migrations/__init__.py
 config/__init__.py
 premises_mfareset/__init__.py
 test/
+staticfiles
