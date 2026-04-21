@@ -63,10 +63,10 @@ CSRF_TRUSTED_ORIGINS = [
 # CAS_VERSION = "2"
 
 
-# LOGIN_URL = "cas_ng_login"
-# LOGOUT_URL = "cas_ng_logout"
-# LOGIN_REDIRECT_URL = "/profile/"
-# LOGOUT_REDIRECT_URL = "/"
+LOGIN_URL = "entra_login"
+LOGOUT_URL = "entra_logout"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 
 AUTHENTICATION_BACKENDS = [
